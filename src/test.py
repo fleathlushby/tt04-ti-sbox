@@ -8,7 +8,7 @@ output = [0x0, 0x0, 0x55, 0xa2, 0x0c]
 @cocotb.test()
 async def test_ti_sbox(dut):
     dut._log.info("start")
-    clock = Clock(dut.clk, 10, units="us")
+    clock = Clock(dut.clk, 10, units="ns")
     cocotb.start_soon(clock.start())
 
     dut._log.info("reset")
