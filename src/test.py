@@ -38,20 +38,11 @@ async def test_ti_sbox(dut):
     # dut._log.info("output ready = {}".format(int(dut.uio_out.value)))
     await ClockCycles(dut.clk, 1)
     dut.ena.value = 0
-    # dut._log.info("output at ena high = {}".format(int(dut.uo_out.value)))
-    # dut._log.info("output ready = {}".format(int(dut.uio_out.value)))
-    # dut._log.info("check 5 inputs")
-    # for i in range(5):
-    #     dut._log.info("check input {}".format(i))
-    #     await ClockCycles(dut.clk, 20)
-    #     dut.ui_in.value = input[i]
-        # dut._log.info("output during input buffering = {}".format(int(dut.uo_out.value)))
-        # dut._log.info("output ready = {}".format(int(dut.uio_out.value)))
-    # await ClockCycles(dut.clk, 170)
-    for i in range(10):
-        dut._log.info("output after input buffering = {}".format(int(dut.uo_out.value)))
-        dut._log.info("output ready = {}".format(int(dut.uio_out.value)))
-        # assert int(dut.uo_out.value) == output[i]
-        assert dut.uio_oe == 0xFF
-        # assert dut.uio_out == 0x01
+    await ClockCycles(dut.clk, 3)
+    dut._log.info("output after input buffering = {}".format(int(dut.uo_out.value)))
+    dut._log.info("output ready = {}".format(int(dut.uio_out.value)))
+    assert dut.uio_oe == 0xFF
+    assert dut.uio_out == 0x01
+    for i in range(5):
+        assert int(dut.uo_out.value) == output[i]
         await ClockCycles(dut.clk, 1)
